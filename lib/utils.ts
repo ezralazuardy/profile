@@ -12,7 +12,7 @@ export function debounce(callback: Function, delay: number) {
 }
 
 export function icon(svg: string, className: string = ""): string {
-  if (className === "") className = "w-4 h-4";
+  if (className === "") className = "pt-1 w-4 h-4";
   return `<span class="${className}">${svg}</span>`;
 }
 

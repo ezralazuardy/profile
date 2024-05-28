@@ -261,6 +261,8 @@ export default function Terminal() {
         </div>
       </div>
       <div ref={bottomContainer} className="invisible"></div>
+      <span className="hidden w-3.5 h-3.5" />
+      <span className="hidden w-4 h-4" />
     </>
   );
 }
