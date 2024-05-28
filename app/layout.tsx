@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en_US">
+    <html lang="en">
       <body className={font.className}>
         {children}
         <Analytics />

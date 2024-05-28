@@ -260,6 +260,7 @@ export default function Terminal() {
         </div>
       </div>
       <div ref={bottomContainer} className="invisible"></div>
+      <label htmlFor="user-input" className="hidden"></label>
     </>
   );
 }
