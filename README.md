@@ -8,9 +8,11 @@
 
 <img width="1433" alt="image" src="https://github.com/ezralazuardy/profile/assets/24422019/ca24ed13-e7e8-4ebc-96d3-01fe6f043ecb">
 
-My very own personal space.
+<span></span>
 
 🔗 https://lazuardy.tech
+
+My very own personal space.
 
 This website is a showcase of my projects, skills, and experiences. It is also a playground for me to experiment with new technologies and ideas.
 
