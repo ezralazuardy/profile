@@ -1,6 +1,6 @@
 import config from "@/lib/config.json" assert { type: "json" };
 import { Source_Code_Pro } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import "@/app/globals.css";
 
