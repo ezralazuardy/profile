@@ -3,7 +3,6 @@ import config from "@/lib/config.json" assert { type: "json" };
 const createAchievement = (): string[] => {
   const achievements: string[] = [];
   const files = `${config.achievements.length} File(s)`;
-  const SPACE = "&nbsp;";
   let string = "";
 
   achievements.push("<br/>");
