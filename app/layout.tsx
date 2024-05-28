@@ -12,6 +12,7 @@ const font = Source_Code_Pro({
 export const metadata: Metadata = {
   title: config.title,
   description: config.description,
+  metadataBase: new URL(`https://${config.hostname}`),
   openGraph: {
     type: "website",
     locale: "en_US",
