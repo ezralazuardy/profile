@@ -253,6 +253,7 @@ export default function Terminal() {
                 enterKeyHint="enter"
                 autoCapitalize="none"
                 autoComplete="off"
+                aria-label="command"
                 spellCheck={false}
               />
             </div>
@@ -260,7 +261,6 @@ export default function Terminal() {
         </div>
       </div>
       <div ref={bottomContainer} className="invisible"></div>
-      <label htmlFor="user-input" className="hidden"></label>
     </>
   );
 }
