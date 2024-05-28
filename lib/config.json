@@ -1,0 +1,70 @@
+{
+  "ascii": [
+    " ______     ______     ______     ______    ",
+    "/\\  ___\\   /\\___  \\   /\\  == \\   /\\  __ \\   ",
+    "\\ \\  __\\   \\/_/  /__  \\ \\  __<   \\ \\  __ \\  ",
+    " \\ \\_____\\   /\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\ ",
+    "  \\/_____/   \\/_____/   \\/_/\\/_/   \\/_/\\/_/ ",
+    "                                            "
+  ],
+  "title": "Ezra Lazuardy",
+  "description": "Ezra Lazuardy's personal space",
+  "username": "ezra",
+  "hostname": "lazuardy.tech",
+  "articleLink": "https://medium.lazuardy.tech",
+  "resumeLink": "https://resume.lazuardy.tech",
+  "repoLink": "https://github.lazuardy.tech",
+  "social": {
+    "email": "ezra@lazuardy.tech",
+    "github": "ezralazuardy",
+    "linkedin": "ezralazuardy"
+  },
+  "projects": [
+    [
+      "Heimdall",
+      "Painless OAuth 2.0 Server for CodeIgniter 4 🔥",
+      "https://github.com/ezralazuardy/heimdall"
+    ],
+    [
+      "Orb",
+      "Android network monitoring made easy 🎉️",
+      "https://github.com/ezralazuardy/orb"
+    ],
+    [
+      "Ravel",
+      "A battery-included CI/CD Environment for Laravel 🪶",
+      "https://github.com/ezralazuardy/ravel"
+    ],
+    [
+      "Gem",
+      "A more fun way to interact with Gemini 💎",
+      "https://github.com/ezralazuardy/gem"
+    ]
+  ],
+  "achievements": [
+    [
+      "Heimdall",
+      "Painless OAuth 2.0 Server for CodeIgniter 4 🔥",
+      "https://github.com/ezralazuardy/heimdall"
+    ]
+  ],
+  "colors": {
+    "background": "#110F18",
+    "foreground": "#F8DDE5",
+    "banner": "#A277FF",
+    "prompt": {
+      "default": "#A5A7A7",
+      "user": "#FF6767",
+      "host": "#61FFCA",
+      "input": "#FFFFFF"
+    },
+    "link": {
+      "text": "#FFCA85",
+      "highlightColor": "#FFCA85",
+      "highlightText": "#000000"
+    },
+    "commands": {
+      "textColor": "#FFCA85"
+    }
+  }
+}
