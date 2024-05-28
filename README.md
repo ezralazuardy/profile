@@ -6,7 +6,9 @@
 
 ## 👨🏻‍💻 profile
 
-Ezra Lazuardy's personal space.
+<img width="1433" alt="image" src="https://github.com/ezralazuardy/profile/assets/24422019/ca24ed13-e7e8-4ebc-96d3-01fe6f043ecb">
+
+My very own personal space.
 
 🔗 https://lazuardy.tech
 
