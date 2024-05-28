@@ -1,8 +1,11 @@
 import config from "@/lib/config.json" assert { type: "json" };
 import { Source_Code_Pro } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "@/app/globals.css";
+
+const url = `https://${config.hostname}`;
 
 const font = Source_Code_Pro({
   subsets: ["latin"],
@@ -12,11 +15,11 @@ const font = Source_Code_Pro({
 export const metadata: Metadata = {
   title: config.title,
   description: config.description,
-  metadataBase: new URL(`https://${config.hostname}`),
+  metadataBase: new URL(url),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: `https://${config.hostname}`,
+    url: url,
     siteName: config.title,
     title: config.title,
     description: config.description,
@@ -41,6 +44,7 @@ export default function RootLayout({
       <body className={font.className}>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
