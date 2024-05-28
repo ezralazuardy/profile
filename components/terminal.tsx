@@ -158,7 +158,7 @@ export default function Terminal() {
       case "articles":
         writeLines(["<br/>", "Redirecting to Medium...", "<br/>"]);
         setTimeout(() => {
-          window.open(config.resumeLink, "_blank");
+          window.open(config.articleLink, "_blank");
         }, 1000);
         break;
       case "resume":
