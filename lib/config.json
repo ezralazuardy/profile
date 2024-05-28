@@ -11,7 +11,7 @@
   "description": "Ezra Lazuardy's personal space",
   "username": "ezra",
   "hostname": "lazuardy.tech",
-  "articleLink": "https://medium.lazuardy.tech",
+  "articleLink": "https://blog.lazuardy.tech",
   "resumeLink": "https://resume.lazuardy.tech",
   "repoLink": "https://github.lazuardy.tech",
   "social": {
@@ -43,9 +43,29 @@
   ],
   "achievements": [
     [
-      "Heimdall",
-      "Painless OAuth 2.0 Server for CodeIgniter 4 🔥",
-      "https://github.com/ezralazuardy/heimdall"
+      "🏆️ Regional Selection of ASEAN Skill Competition XII",
+      "3rd Place in Bussiness App Development Category",
+      "https://inaskills.kemnaker.go.id/asc"
+    ],
+    [
+      "🏆️ Regional Selection of LKS 2019",
+      "3rd Place in Web Development Category",
+      "https://lksjateng.com"
+    ],
+    [
+      "🏆️ Techcomfest Programming Competition 2018",
+      "3rd Place in Data Structure and Algorithm Category",
+      "https://techcomfest.ukmpcc.org"
+    ],
+    [
+      "🏆️ IT Venture XII by P!NGFEST",
+      "Finalist in Data Structure and Algorithm Category",
+      "https://pingfest.com/it-venture"
+    ],
+    [
+      "🏆️ Ki Hajar Mobile Compoetition 2018",
+      "Contributor in Mobile Development Category",
+      "https://kihajar.kemdikbud.go.id"
     ]
   ],
   "colors": {

@@ -10,7 +10,6 @@ const createAchievement = (): string[] => {
   config.achievements.forEach((ele) => {
     let link = `<a href="${ele[2]}" target="_blank">${ele[0]}</a>`;
     string += link;
-    string += SPACE.repeat(10 - ele[0].length);
     string += "<br/>";
     string += ele[1];
     achievements.push(string);
