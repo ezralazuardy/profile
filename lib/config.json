@@ -1,12 +1,4 @@
 {
-  "ascii": [
-    " ______     ______     ______     ______    ",
-    "/\\  ___\\   /\\___  \\   /\\  == \\   /\\  __ \\   ",
-    "\\ \\  __\\   \\/_/  /__  \\ \\  __<   \\ \\  __ \\  ",
-    " \\ \\_____\\   /\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\ ",
-    "  \\/_____/   \\/_____/   \\/_/\\/_/   \\/_/\\/_/ ",
-    "                                            "
-  ],
   "title": "Ezra Lazuardy",
   "description": "Ezra Lazuardy's personal space",
   "username": "ezra",
@@ -18,6 +10,25 @@
     "email": "ezra@lazuardy.tech",
     "github": "ezralazuardy",
     "linkedin": "ezralazuardy"
+  },
+  "colors": {
+    "background": "#110F18",
+    "foreground": "#F8DDE5",
+    "banner": "#A277FF",
+    "prompt": {
+      "default": "#A5A7A7",
+      "user": "#FF6767",
+      "host": "#61FFCA",
+      "input": "#FFFFFF"
+    },
+    "link": {
+      "text": "#FFCA85",
+      "highlightColor": "#FFCA85",
+      "highlightText": "#000000"
+    },
+    "commands": {
+      "textColor": "#FFCA85"
+    }
   },
   "projects": [
     [
@@ -68,23 +79,12 @@
       "https://kihajar.kemdikbud.go.id"
     ]
   ],
-  "colors": {
-    "background": "#110F18",
-    "foreground": "#F8DDE5",
-    "banner": "#A277FF",
-    "prompt": {
-      "default": "#A5A7A7",
-      "user": "#FF6767",
-      "host": "#61FFCA",
-      "input": "#FFFFFF"
-    },
-    "link": {
-      "text": "#FFCA85",
-      "highlightColor": "#FFCA85",
-      "highlightText": "#000000"
-    },
-    "commands": {
-      "textColor": "#FFCA85"
-    }
-  }
+  "ascii": [
+    " ______     ______     ______     ______    ",
+    "/\\  ___\\   /\\___  \\   /\\  == \\   /\\  __ \\   ",
+    "\\ \\  __\\   \\/_/  /__  \\ \\  __<   \\ \\  __ \\  ",
+    " \\ \\_____\\   /\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\ ",
+    "  \\/_____/   \\/_____/   \\/_/\\/_/   \\/_/\\/_/ ",
+    "                                            "
+  ]
 }
