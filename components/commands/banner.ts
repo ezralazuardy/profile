@@ -29,7 +29,7 @@ const createBanner = (): string[] => {
     "Type <span class='command'>'help'</span> for a list of all available commands.",
   );
   banner.push(
-    `Type <span class='command'>'repo'</span> to view the GitHub repository or click <a href='${config.repoLink}' target='_blank'>here</a>.`,
+    `Type <span class='command'>'repo'</span> to view the GitHub repository or click <a href='${config.repoLink}' target='_blank' class='font-bold underline'>here</a>.`,
   );
   banner.push("<br/>");
   return banner;
