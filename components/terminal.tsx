@@ -259,7 +259,7 @@ export default function Terminal() {
           </div>
         </div>
       </div>
-      <div ref={bottomContainer} className="invisible w-4 h-4 pt-0.5"></div>
+      <div ref={bottomContainer} className="invisible"></div>
     </>
   );
 }
