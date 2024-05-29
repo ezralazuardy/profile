@@ -25,6 +25,7 @@ const COMMANDS = [
 
 export default function Terminal() {
   const HISTORY: string[] = [];
+  const [booted, setBooted] = useState(false);
   const command: RefObject<HTMLDivElement> = useRef(null);
   const terminal: RefObject<HTMLDivElement> = useRef(null);
   const host: RefObject<HTMLSpanElement> = useRef(null);
@@ -39,6 +40,8 @@ export default function Terminal() {
   let historyIdx = 0;
   let beepKey: HTMLAudioElement | null = null;
   let beepCommand: HTMLAudioElement | null = null;
+  let successCommand: HTMLAudioElement | null = null;
+  let failedCommand: HTMLAudioElement | null = null;
 
   async function enterKey() {
     if (!mutWriteLines?.current) return;
@@ -112,15 +115,16 @@ export default function Terminal() {
     command?.current?.scrollIntoView();
   }
 
-  async function writeLines(message: string[], animate: boolean = true) {
+  async function writeLines(
+    message: string[],
+    animate: boolean = true,
+    autoShowCommand: boolean = true,
+  ) {
     let delay = 0;
-    if (mutUserInput.current) mutUserInput.current.disabled = true;
     for (let i = 0; i < message.length; i++) {
       displayText(message[i], animate ? (delay += 120) : 0);
     }
-    setTimeout(() => {
-      if (mutUserInput.current) mutUserInput.current.disabled = false;
-    }, delay);
+    if (autoShowCommand) setTimeout(() => showCommand(true), delay);
   }
 
   async function displayText(item: string, delay: number) {
@@ -140,66 +144,73 @@ export default function Terminal() {
   }
 
   async function commandHandler(input: string) {
+    showCommand(false);
+    const delay = 150;
     return new Promise((resolve) =>
       setTimeout(async () => {
         switch (input) {
           case "help":
             beepCommand?.play().then(async () => {
-              await writeLines(HELP);
+              setTimeout(async () => {
+                await writeLines(HELP);
+              }, delay);
             });
             break;
           case "whoami":
-            beepCommand?.play().then(async () => {
-              await writeLines(createWhoami());
+            successCommand?.play().then(async () => {
+              setTimeout(async () => {
+                await writeLines(createWhoami());
+              }, delay);
             });
             break;
           case "about":
             beepCommand?.play().then(async () => {
-              await writeLines(ABOUT);
+              setTimeout(async () => {
+                await writeLines(ABOUT);
+              }, delay);
             });
             break;
           case "projects":
             beepCommand?.play().then(async () => {
-              await writeLines(PROJECTS);
+              setTimeout(async () => {
+                await writeLines(PROJECTS);
+              }, delay);
             });
             break;
           case "achievements":
             beepCommand?.play().then(async () => {
-              await writeLines(ACHIEVEMENTS);
+              setTimeout(async () => {
+                await writeLines(ACHIEVEMENTS);
+              }, delay);
             });
             break;
           case "articles":
             beepCommand?.play().then(async () => {
-              await writeLines(["<br/>", "Redirecting to Medium...", "<br/>"]);
-              setTimeout(() => {
-                window.open(config.articleLink, "_blank");
-              }, 1000);
+              setTimeout(async () => {
+                await loadLink("Medium", config.articleLink);
+              }, delay);
             });
             break;
           case "resume":
             beepCommand?.play().then(async () => {
-              await writeLines([
-                "<br/>",
-                "Redirecting to Papermark...",
-                "<br/>",
-              ]);
-              setTimeout(() => {
-                window.open(config.resumeLink, "_blank");
-              }, 1000);
+              setTimeout(async () => {
+                await loadLink("Papermark", config.resumeLink);
+              }, delay);
             });
             break;
           case "repo":
             beepCommand?.play().then(async () => {
-              await writeLines(["<br/>", "Redirecting to GitHub...", "<br/>"]);
-              setTimeout(() => {
-                window.open(config.repoLink, "_blank");
-              }, 1000);
+              setTimeout(async () => {
+                await loadLink("GitHub", config.repoLink);
+              }, delay);
             });
             break;
           case "banner":
             beepCommand?.play().then(async () => {
-              await writeLines(["<br/>"]);
-              await writeLines(BANNER);
+              setTimeout(async () => {
+                await writeLines(["<br/>"]);
+                await writeLines(BANNER);
+              }, delay);
             });
             break;
           case "clear":
@@ -210,12 +221,14 @@ export default function Terminal() {
                 terminal.current.innerHTML = "";
                 terminal.current.appendChild(mutWriteLines.current);
                 await writeLines(BANNER, false);
-              });
+              }, delay);
             });
             break;
           default:
-            beepCommand?.play().then(async () => {
-              await writeLines(DEFAULT);
+            failedCommand?.play().then(async () => {
+              setTimeout(async () => {
+                await writeLines(DEFAULT);
+              }, delay);
             });
             break;
         }
@@ -259,14 +272,55 @@ export default function Terminal() {
     }
   }
 
-  async function boot() {
+  async function loadLink(name: string, url: string) {
+    await writeLines(
+      ["<br/>", `Redirecting to ${name}...`, "<br/>"],
+      true,
+      false,
+    );
+    setTimeout(() => {
+      try {
+        successCommand?.play().then(() => {
+          window.open(url, "_blank");
+          showCommand(true);
+        });
+      } catch (e) {
+        console.error(e);
+        showCommand(true);
+      }
+    }, 1000);
+  }
+
+  async function loadAudio() {
     beepKey = new Audio("/beep.mp3");
     beepCommand = new Audio("/beep.mp3");
+    successCommand = new Audio("/success.mp3");
+    failedCommand = new Audio("/failed.mp3");
+    beepKey.volume = 1;
+    beepCommand.volume = 1;
+    successCommand.volume = 1;
+    failedCommand.volume = 0.3;
+  }
+
+  async function showCommand(show: boolean = true) {
+    if (!command.current) return;
+    if (show) {
+      command.current.classList.remove("invisible");
+      return;
+    }
+    command.current.classList.add("invisible");
+  }
+
+  async function boot() {
+    mutUserInput?.current?.focus();
+    if (booted) return;
+    setBooted(true);
+    setTerminalStyle();
+    await loadAudio();
     await commandHandler("clear");
     if (host?.current) host.current.innerText = config.hostname;
     if (user?.current) user.current.innerText = config.username;
     if (mutUserInput?.current) {
-      mutUserInput.current.focus();
       mutUserInput.current.addEventListener("keypress", userInputHandler);
       mutUserInput.current.addEventListener("keydown", userInputHandler);
       window.addEventListener("click", () => {
@@ -276,9 +330,8 @@ export default function Terminal() {
   }
 
   useEffect(() => {
-    setTerminalStyle();
     boot();
-  }, []);
+  });
 
   return (
     <>
