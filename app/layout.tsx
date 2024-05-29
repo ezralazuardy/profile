@@ -43,6 +43,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         {children}
+        <span className="hidden invisible w-4 h-4" />
+        <span className="hidden invisible w-3.5 h-3.5" />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -32,6 +32,7 @@ const createBanner = (): string[] => {
     `Type <span class='command'>'repo'</span> to see my repository or directly go to <a href='${config.repoLink}' target='_blank' class='font-bold underline'>GitHub</a>.`,
   );
   banner.push("<br/>");
+
   return banner;
 };
 

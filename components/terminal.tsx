@@ -9,38 +9,38 @@ import { DEFAULT } from "@/components/commands/default";
 import { ACHIEVEMENTS } from "@/components/commands/achievements";
 import { PROJECTS } from "@/components/commands/projects";
 import { createWhoami } from "@/components/commands/whoami";
-import { debounce } from "@/lib/utils";
+
+const COMMANDS = [
+  "help",
+  "whoami",
+  "about",
+  "projects",
+  "achievements",
+  "articles",
+  "resume",
+  "repo",
+  "banner",
+  "clear",
+];
 
 export default function Terminal() {
-  const bottomContainer: RefObject<HTMLDivElement> = useRef(null);
+  const HISTORY: string[] = [];
+  const command: RefObject<HTMLDivElement> = useRef(null);
   const terminal: RefObject<HTMLDivElement> = useRef(null);
   const host: RefObject<HTMLSpanElement> = useRef(null);
   const user: RefObject<HTMLSpanElement> = useRef(null);
   const prompt: RefObject<HTMLSpanElement> = useRef(null);
   const mutWriteLines: RefObject<HTMLAnchorElement> = useRef(null);
   const mutUserInput: RefObject<HTMLInputElement> = useRef(null);
-  const HISTORY: string[] = [];
-  const COMMANDS = [
-    "help",
-    "whoami",
-    "about",
-    "projects",
-    "achievements",
-    "articles",
-    "resume",
-    "repo",
-    "banner",
-    "clear",
-  ];
+  const beepKey = new Audio("/beep.mp3");
+  const beepCommand = new Audio("/beep.mp3");
 
   const resetInput = "";
   let tempInput = "";
   let userInput = "";
   let historyIdx = 0;
 
-  const debouncedEnterKey = debounce(enterKey, 50);
-
-  function enterKey() {
+  async function enterKey() {
     if (!mutWriteLines?.current) return;
     if (!mutUserInput?.current) return;
     if (!prompt?.current) return;
@@ -50,32 +50,32 @@ export default function Terminal() {
     historyIdx = HISTORY.length;
 
     if (userInput === "clear") {
-      commandHandler(userInput.toLowerCase().trim());
+      await commandHandler(userInput.toLowerCase().trim());
       mutUserInput.current.value = resetInput;
       userInput = resetInput;
       return;
     }
 
     if (mutWriteLines.current.parentNode) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <span id="prompt">
-          <span id="user">${config.username}</span>@<span id="host">${config.hostname}</span>:$ ~
-        </span>
-        <span class='output'>${userInput}</span>
-      `;
-      mutWriteLines.current.parentNode.insertBefore(div, mutWriteLines.current);
+      const p = document.createElement("p");
+      p.innerHTML = `
+          <span id="prompt">
+            <span id="user">${config.username}</span>@<span id="host">${config.hostname}</span>:$ ~
+          </span>
+          <span class='output'>${userInput}</span>
+        `;
+      mutWriteLines.current.parentNode.insertBefore(p, mutWriteLines.current);
     }
 
     if (userInput.trim().length !== 0) {
-      commandHandler(userInput.toLowerCase().trim());
+      await commandHandler(userInput.toLowerCase().trim());
     }
 
     mutUserInput.current.value = resetInput;
     userInput = resetInput;
   }
 
-  function tabKey() {
+  async function tabKey() {
     if (!mutUserInput?.current) return;
     let currInput = mutUserInput.current.value;
     for (const command of COMMANDS) {
@@ -86,7 +86,7 @@ export default function Terminal() {
     }
   }
 
-  function arrowKeys(e: string) {
+  async function arrowKeys(e: string) {
     if (!mutUserInput?.current) return;
     switch (e) {
       case "ArrowDown":
@@ -108,111 +108,159 @@ export default function Terminal() {
     }
   }
 
-  function scrollToBottom() {
-    if (!bottomContainer?.current) return;
-    bottomContainer.current.scrollIntoView({ behavior: "smooth" });
+  async function scrollToBottom() {
+    command?.current?.scrollIntoView();
   }
 
-  function userInputHandler(e: KeyboardEvent) {
+  async function writeLines(message: string[], animate: boolean = true) {
+    let delay = 0;
+    if (mutUserInput.current) mutUserInput.current.disabled = true;
+    for (let i = 0; i < message.length; i++) {
+      displayText(message[i], animate ? (delay += 120) : 0);
+    }
+    setTimeout(() => {
+      if (mutUserInput.current) mutUserInput.current.disabled = false;
+    }, delay);
+  }
+
+  async function displayText(item: string, delay: number) {
+    return new Promise((resolve) =>
+      setTimeout(async () => {
+        if (!mutWriteLines?.current) return;
+        const p = document.createElement("p");
+        p.innerHTML = item;
+        mutWriteLines.current.parentNode!.insertBefore(
+          p,
+          mutWriteLines.current,
+        );
+        await scrollToBottom();
+        resolve(true);
+      }, delay),
+    );
+  }
+
+  async function commandHandler(input: string) {
+    return new Promise((resolve) =>
+      setTimeout(async () => {
+        switch (input) {
+          case "help":
+            beepCommand.play().then(async () => {
+              await writeLines(HELP);
+            });
+            break;
+          case "whoami":
+            beepCommand.play().then(async () => {
+              await writeLines(createWhoami());
+            });
+            break;
+          case "about":
+            beepCommand.play().then(async () => {
+              await writeLines(ABOUT);
+            });
+            break;
+          case "projects":
+            beepCommand.play().then(async () => {
+              await writeLines(PROJECTS);
+            });
+            break;
+          case "achievements":
+            beepCommand.play().then(async () => {
+              await writeLines(ACHIEVEMENTS);
+            });
+            break;
+          case "articles":
+            beepCommand.play().then(async () => {
+              await writeLines(["<br/>", "Redirecting to Medium...", "<br/>"]);
+              setTimeout(() => {
+                window.open(config.articleLink, "_blank");
+              }, 1000);
+            });
+            break;
+          case "resume":
+            beepCommand.play().then(async () => {
+              await writeLines([
+                "<br/>",
+                "Redirecting to Papermark...",
+                "<br/>",
+              ]);
+              setTimeout(() => {
+                window.open(config.resumeLink, "_blank");
+              }, 1000);
+            });
+            break;
+          case "repo":
+            beepCommand.play().then(async () => {
+              await writeLines(["<br/>", "Redirecting to GitHub...", "<br/>"]);
+              setTimeout(() => {
+                window.open(config.repoLink, "_blank");
+              }, 1000);
+            });
+            break;
+          case "banner":
+            beepCommand.play().then(async () => {
+              await writeLines(["<br/>"]);
+              await writeLines(BANNER);
+            });
+            break;
+          case "clear":
+            beepCommand.play().then(async () => {
+              setTimeout(async () => {
+                if (!terminal?.current) return;
+                if (!mutWriteLines?.current) return;
+                terminal.current.innerHTML = "";
+                terminal.current.appendChild(mutWriteLines.current);
+                await writeLines(BANNER, false);
+              });
+            });
+            break;
+          default:
+            beepCommand.play().then(async () => {
+              await writeLines(DEFAULT);
+            });
+            break;
+        }
+        resolve(true);
+      }),
+    );
+  }
+
+  async function userInputHandler(e: KeyboardEvent) {
     const key = e.key;
     switch (key) {
       case "Enter":
         e.preventDefault();
-        debouncedEnterKey();
-        scrollToBottom();
+        await enterKey();
         break;
       case "Escape":
-        if (!mutUserInput?.current) return;
-        mutUserInput.current.value = "";
+        e.preventDefault();
+        beepKey.play().then(async () => {
+          if (!mutUserInput?.current) return;
+          mutUserInput.current.value = "";
+        });
         break;
       case "ArrowUp":
-        arrowKeys(key);
+        e.preventDefault();
+        beepKey.play().then(async () => {
+          arrowKeys(key);
+        });
         break;
       case "ArrowDown":
-        arrowKeys(key);
+        e.preventDefault();
+        beepKey.play().then(async () => {
+          arrowKeys(key);
+        });
         break;
       case "Tab":
         e.preventDefault();
-        tabKey();
-        break;
-    }
-  }
-
-  function commandHandler(input: string) {
-    switch (input) {
-      case "help":
-        writeLines(HELP);
-        break;
-      case "whoami":
-        writeLines(createWhoami());
-        break;
-      case "about":
-        writeLines(ABOUT);
-        break;
-      case "projects":
-        writeLines(PROJECTS);
-        break;
-      case "achievements":
-        writeLines(ACHIEVEMENTS);
-        break;
-      case "articles":
-        writeLines(["<br/>", "Redirecting to Medium...", "<br/>"]);
-        setTimeout(() => {
-          window.open(config.articleLink, "_blank");
-        }, 1000);
-        break;
-      case "resume":
-        writeLines(["<br/>", "Redirecting to Papermark...", "<br/>"]);
-        setTimeout(() => {
-          window.open(config.resumeLink, "_blank");
-        }, 1000);
-        break;
-      case "repo":
-        writeLines(["<br/>", "Redirecting to GitHub...", "<br/>"]);
-        setTimeout(() => {
-          window.open(config.repoLink, "_blank");
-        }, 1000);
-        break;
-      case "banner":
-        writeLines(["<br/>"]);
-        writeLines(BANNER);
-        break;
-      case "clear":
-        setTimeout(() => {
-          if (!terminal?.current) return;
-          if (!mutWriteLines?.current) return;
-          terminal.current.innerHTML = "";
-          terminal.current.appendChild(mutWriteLines.current);
-          writeLines(BANNER);
+        beepKey.play().then(async () => {
+          tabKey();
         });
         break;
-      default:
-        writeLines(DEFAULT);
-        break;
     }
   }
 
-  function writeLines(message: string[]) {
-    message.forEach((item, idx) => {
-      displayText(item, idx);
-    });
-  }
-
-  function displayText(item: string, idx: number) {
-    setTimeout(() => {
-      if (!mutWriteLines?.current) return;
-      const p = document.createElement("p");
-      p.innerHTML = item;
-      mutWriteLines.current.parentNode!.insertBefore(p, mutWriteLines.current);
-      scrollToBottom();
-    }, idx);
-  }
-
-  function boot() {
-    commandHandler("clear");
-    tempInput = "";
-    userInput = "";
-    historyIdx = 0;
+  async function boot() {
+    await commandHandler("clear");
     if (host?.current) host.current.innerText = config.hostname;
     if (user?.current) user.current.innerText = config.username;
     if (mutUserInput?.current) {
@@ -232,12 +280,12 @@ export default function Terminal() {
 
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen pb-8 lg:pb-16">
+      <div className="flex justify-center items-center visible min-h-screen py-8 lg:py-16">
         <div className="w-62 md:w-auto">
           <div ref={terminal} id="terminal" className="min-w-62 w-full">
             <a ref={mutWriteLines} id="write-lines" className="w-full"></a>
           </div>
-          <div className="w-full flex flex-wrap space-x-2">
+          <div ref={command} className="w-full flex flex-wrap space-x-2">
             <div className="w-auto">
               <span ref={prompt} id="prompt">
                 <span ref={user} id="user"></span>@
@@ -254,15 +302,13 @@ export default function Terminal() {
                 autoCapitalize="none"
                 autoComplete="off"
                 aria-label="command"
+                maxLength={35}
                 spellCheck={false}
               />
             </div>
           </div>
         </div>
       </div>
-      <div ref={bottomContainer} className="invisible"></div>
-      <span className="hidden w-3.5 h-3.5" />
-      <span className="hidden w-4 h-4" />
     </>
   );
 }
@@ -272,9 +318,9 @@ export function setTerminalStyle() {
 
   const style = document.createElement("style");
   const head = document.head;
-  const background = `body {background: ${config.colors.background}}`;
+  const background = `body {background-color: ${config.colors.background}}`;
   const foreground = `body {color: ${config.colors.foreground}}`;
-  const inputBackground = `input {background: ${config.colors.background}}`;
+  const inputBackground = `input {background-color: ${config.colors.background}}`;
   const inputForeground = `input {color: ${config.colors.prompt.input}}`;
   const outputColor = `.output {color: ${config.colors.prompt.input}}`;
   const preHost = `#pre-host {color: ${config.colors.prompt.host}}`;
@@ -284,7 +330,7 @@ export function setTerminalStyle() {
   const prompt = `#prompt {color: ${config.colors.prompt.default}}`;
   const banner = `pre, .banner {color: ${config.colors.banner}}`;
   const link = `a {color: ${config.colors.link.text}}`;
-  const linkHighlight = `a:hover {background: ${config.colors.link.highlightColor}}`;
+  const linkHighlight = `a:hover {background-color: ${config.colors.link.highlightColor}}`;
   const linkTextHighlight = `a:hover {color: ${config.colors.link.highlightText}}`;
   const commandHighlight = `.command {color: ${config.colors.commands.textColor}}`;
   const keys = `.keys {color: ${config.colors.banner}}`;
