@@ -6,7 +6,7 @@
 
 ## 👨🏻‍💻 profile
 
-<img width="1433" alt="image" src="https://github.com/ezralazuardy/profile/assets/24422019/ca24ed13-e7e8-4ebc-96d3-01fe6f043ecb">
+<img width="1420" alt="image" src="https://github.com/ezralazuardy/profile/assets/24422019/d7da5413-9179-4dbb-822f-c3d7c6947eaa"/>
 
 <span></span>
 
