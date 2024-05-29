@@ -1,7 +1,7 @@
 "use client";
 
 import config from "@/lib/config.json" assert { type: "json" };
-import { useRef, useEffect, RefObject } from "react";
+import { useRef, useEffect, useState, RefObject } from "react";
 import { HELP } from "@/components/commands/help";
 import { BANNER } from "@/components/commands/banner";
 import { ABOUT } from "@/components/commands/about";
@@ -32,13 +32,13 @@ export default function Terminal() {
   const prompt: RefObject<HTMLSpanElement> = useRef(null);
   const mutWriteLines: RefObject<HTMLAnchorElement> = useRef(null);
   const mutUserInput: RefObject<HTMLInputElement> = useRef(null);
-  const beepKey = new Audio("/beep.mp3");
-  const beepCommand = new Audio("/beep.mp3");
 
   const resetInput = "";
   let tempInput = "";
   let userInput = "";
   let historyIdx = 0;
+  let beepKey: HTMLAudioElement | null = null;
+  let beepCommand: HTMLAudioElement | null = null;
 
   async function enterKey() {
     if (!mutWriteLines?.current) return;
@@ -144,32 +144,32 @@ export default function Terminal() {
       setTimeout(async () => {
         switch (input) {
           case "help":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(HELP);
             });
             break;
           case "whoami":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(createWhoami());
             });
             break;
           case "about":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(ABOUT);
             });
             break;
           case "projects":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(PROJECTS);
             });
             break;
           case "achievements":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(ACHIEVEMENTS);
             });
             break;
           case "articles":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(["<br/>", "Redirecting to Medium...", "<br/>"]);
               setTimeout(() => {
                 window.open(config.articleLink, "_blank");
@@ -177,7 +177,7 @@ export default function Terminal() {
             });
             break;
           case "resume":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines([
                 "<br/>",
                 "Redirecting to Papermark...",
@@ -189,7 +189,7 @@ export default function Terminal() {
             });
             break;
           case "repo":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(["<br/>", "Redirecting to GitHub...", "<br/>"]);
               setTimeout(() => {
                 window.open(config.repoLink, "_blank");
@@ -197,13 +197,13 @@ export default function Terminal() {
             });
             break;
           case "banner":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(["<br/>"]);
               await writeLines(BANNER);
             });
             break;
           case "clear":
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               setTimeout(async () => {
                 if (!terminal?.current) return;
                 if (!mutWriteLines?.current) return;
@@ -214,7 +214,7 @@ export default function Terminal() {
             });
             break;
           default:
-            beepCommand.play().then(async () => {
+            beepCommand?.play().then(async () => {
               await writeLines(DEFAULT);
             });
             break;
@@ -233,26 +233,26 @@ export default function Terminal() {
         break;
       case "Escape":
         e.preventDefault();
-        beepKey.play().then(async () => {
+        beepKey?.play().then(async () => {
           if (!mutUserInput?.current) return;
           mutUserInput.current.value = "";
         });
         break;
       case "ArrowUp":
         e.preventDefault();
-        beepKey.play().then(async () => {
+        beepKey?.play().then(async () => {
           arrowKeys(key);
         });
         break;
       case "ArrowDown":
         e.preventDefault();
-        beepKey.play().then(async () => {
+        beepKey?.play().then(async () => {
           arrowKeys(key);
         });
         break;
       case "Tab":
         e.preventDefault();
-        beepKey.play().then(async () => {
+        beepKey?.play().then(async () => {
           tabKey();
         });
         break;
@@ -260,6 +260,8 @@ export default function Terminal() {
   }
 
   async function boot() {
+    beepKey = new Audio("/beep.mp3");
+    beepCommand = new Audio("/beep.mp3");
     await commandHandler("clear");
     if (host?.current) host.current.innerText = config.hostname;
     if (user?.current) user.current.innerText = config.username;
@@ -276,7 +278,7 @@ export default function Terminal() {
   useEffect(() => {
     setTerminalStyle();
     boot();
-  });
+  }, []);
 
   return (
     <>
