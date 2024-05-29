@@ -25,7 +25,7 @@ const COMMANDS = [
 
 export default function Terminal() {
   const HISTORY: string[] = [];
-  const [booted, setBooted] = useState(false);
+  const initialized = useRef(false);
   const command: RefObject<HTMLDivElement> = useRef(null);
   const terminal: RefObject<HTMLDivElement> = useRef(null);
   const host: RefObject<HTMLSpanElement> = useRef(null);
@@ -56,6 +56,7 @@ export default function Terminal() {
       await commandHandler(userInput.toLowerCase().trim());
       mutUserInput.current.value = resetInput;
       userInput = resetInput;
+
       return;
     }
 
@@ -313,11 +314,9 @@ export default function Terminal() {
 
   async function boot() {
     mutUserInput?.current?.focus();
-    if (booted) return;
-    setBooted(true);
-    setTerminalStyle();
+    await setTerminalStyle();
     await loadAudio();
-    await commandHandler("clear");
+    await writeLines(BANNER, false, false);
     if (host?.current) host.current.innerText = config.hostname;
     if (user?.current) user.current.innerText = config.username;
     if (mutUserInput?.current) {
@@ -330,7 +329,10 @@ export default function Terminal() {
   }
 
   useEffect(() => {
-    boot();
+    if (!initialized.current) {
+      initialized.current = true;
+      boot();
+    }
   });
 
   return (
@@ -368,7 +370,7 @@ export default function Terminal() {
   );
 }
 
-export function setTerminalStyle() {
+export async function setTerminalStyle() {
   if (!document) return;
 
   const style = document.createElement("style");
