@@ -1,7 +1,7 @@
 "use client";
 
 import config from "@/lib/config.json" assert { type: "json" };
-import { useRef, useEffect, useState, RefObject } from "react";
+import { useRef, useEffect, RefObject } from "react";
 import { HELP } from "@/components/commands/help";
 import { BANNER } from "@/components/commands/banner";
 import { ABOUT } from "@/components/commands/about";
