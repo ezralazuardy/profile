@@ -2,10 +2,8 @@ import config from "@/lib/config.json" assert { type: "json" };
 import { Source_Code_Pro } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
-
-const url = `https://${config.hostname}`;
 
 const font = Source_Code_Pro({
   subsets: ["latin"],
@@ -13,25 +11,34 @@ const font = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
   title: config.title,
   description: config.description,
-  metadataBase: new URL(url),
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: url,
-    siteName: config.title,
-    title: config.title,
-    description: config.description,
-    images: [
-      {
-        alt: config.title,
-        url: `/og.png`,
-        width: 1600,
-        height: 800,
-      },
-    ],
+  generator: "Next.js",
+  applicationName: config.title,
+  referrer: "origin-when-cross-origin",
+  creator: config.title,
+  publisher: config.title,
+  manifest: `${process.env.NEXT_PUBLIC_APP_URL}/manifest.json`,
+  category: config.categories,
+  keywords: config.keywords,
+  authors: [{ name: config.title, url: process.env.NEXT_PUBLIC_APP_URL }],
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [{ color: config.colors.background }],
 };
 
 export default function RootLayout({

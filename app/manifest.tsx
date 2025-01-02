@@ -1,12 +1,14 @@
+import config from "@/lib/config.json" assert { type: "json" };
+
 export default function manifest() {
   return {
-    name: "Ezra Lazuardy",
-    short_name: "Ezra",
-    description: "I help big companies, grow bigger.",
+    name: config.title,
+    short_name: config.title,
+    description: config.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#0D1117",
-    theme_color: "#0D1117",
+    background_color: config.colors.background,
+    theme_color: config.colors.background,
     icons: [
       {
         src: "/web-app-manifest-192x192.png",
