@@ -5,9 +5,9 @@
   "description": "Ezra Lazuardy's personal space",
   "username": "ezra",
   "hostname": "lazuardy.tech",
-  "articleLink": "https://blog.lazuardy.tech",
-  "resumeLink": "https://resume.lazuardy.tech",
-  "repoLink": "https://github.lazuardy.tech",
+  "articleLink": "https://lazuardytech.medium.com",
+  "resumeLink": "https://papermark.io/view/clwq8tzpl000d71c5xhzaiv3x",
+  "githubLink": "https://github.com/ezralazuardy",
   "social": {
     "email": "ezra@lazuardy.tech",
     "github": "ezralazuardy",
@@ -52,9 +52,24 @@
       "💎 Gem",
       "A more fun way to interact with Gemini.",
       "https://github.com/ezralazuardy/gem"
+    ],
+    [
+      "ꦲ Aksara",
+      "Headless javanese script translator.",
+      "https://github.com/ezralazuardy/aksara"
+    ],
+    [
+      "🦑 Pokemon",
+      "A simple, lightweight pokemon-like game for web.",
+      "https://github.com/ezralazuardy/pokemon"
     ]
   ],
   "achievements": [
+    [
+      "🏆️ Certified Presenter on ICITACEE 2024",
+      "IEEE (Institute of Electrical and Electronics Engineers).",
+      "https://www.ieee.org"
+    ],
     [
       "🏆️ Regional Selection of ASEAN Skill Competition XII",
       "3rd Place in Bussiness App Development Category.",

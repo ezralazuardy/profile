@@ -202,7 +202,7 @@ export default function Terminal() {
           case "repo":
             beepCommand?.play().then(async () => {
               setTimeout(async () => {
-                await loadLink("GitHub", config.repoLink);
+                await loadLink("GitHub", config.githubLink);
               }, delay);
             });
             break;
