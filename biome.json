@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["node_modules", ".next", "public", "dist", ".vercel", "coverage", "out"]
+    "ignore": [
+      "node_modules",
+      ".next",
+      "public",
+      "dist",
+      ".vercel",
+      "coverage",
+      "out"
+    ]
   },
   "formatter": {
     "enabled": true,
