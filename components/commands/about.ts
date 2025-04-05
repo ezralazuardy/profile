@@ -1,4 +1,4 @@
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 import { email, github, linkedin } from "@/lib/icons";
 import { icon } from "@/lib/utils";
 
@@ -42,7 +42,7 @@ const createAbout = (): string[] => {
 
   about.push("<br/>");
   about.push(
-    "Find more about me on <a target='_blank' href='https://about.lazuardy.tech'>Linktree</a>.",
+    "Find more about me on <a target='_blank' href='https://about.lazuardy.tech'>Linktree</a>."
   );
   about.push("<br/>");
   return about;

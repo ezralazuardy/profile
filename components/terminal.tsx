@@ -1,6 +1,6 @@
 "use client";
 
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 import { useRef, useEffect, RefObject } from "react";
 import { HELP } from "@/components/commands/help";
 import { BANNER } from "@/components/commands/banner";
@@ -97,13 +97,11 @@ export default function Terminal() {
         if (historyIdx !== HISTORY.length) {
           historyIdx += 1;
           mutUserInput.current.value = HISTORY[historyIdx];
-          if (historyIdx === HISTORY.length)
-            mutUserInput.current.value = tempInput;
+          if (historyIdx === HISTORY.length) mutUserInput.current.value = tempInput;
         }
         break;
       case "ArrowUp":
-        if (historyIdx === HISTORY.length)
-          tempInput = mutUserInput.current.value;
+        if (historyIdx === HISTORY.length) tempInput = mutUserInput.current.value;
         if (historyIdx !== 0) {
           historyIdx -= 1;
           mutUserInput.current.value = HISTORY[historyIdx];
@@ -119,7 +117,7 @@ export default function Terminal() {
   async function writeLines(
     message: string[],
     animate: boolean = true,
-    autoShowCommand: boolean = true,
+    autoShowCommand: boolean = true
   ) {
     let delay = 0;
     for (let i = 0; i < message.length; i++) {
@@ -134,13 +132,10 @@ export default function Terminal() {
         if (!mutWriteLines?.current) return;
         const p = document.createElement("p");
         p.innerHTML = item;
-        mutWriteLines.current.parentNode!.insertBefore(
-          p,
-          mutWriteLines.current,
-        );
+        mutWriteLines.current.parentNode!.insertBefore(p, mutWriteLines.current);
         await scrollToBottom();
         resolve(true);
-      }, delay),
+      }, delay)
     );
   }
 
@@ -234,7 +229,7 @@ export default function Terminal() {
             break;
         }
         resolve(true);
-      }),
+      })
     );
   }
 
@@ -274,11 +269,7 @@ export default function Terminal() {
   }
 
   async function loadLink(name: string, url: string) {
-    await writeLines(
-      ["<br/>", `Redirecting to ${name}...`, "<br/>"],
-      true,
-      false,
-    );
+    await writeLines(["<br/>", `Redirecting to ${name}...`, "<br/>"], true, false);
     setTimeout(() => {
       try {
         successCommand?.play().then(() => {
@@ -345,8 +336,7 @@ export default function Terminal() {
           <div ref={command} className="w-full flex flex-wrap space-x-2">
             <div className="w-auto">
               <span ref={prompt} id="prompt">
-                <span ref={user} id="user"></span>@
-                <span ref={host} id="host"></span>:$ ~{" "}
+                <span ref={user} id="user"></span>@<span ref={host} id="host"></span>:$ ~{" "}
               </span>
             </div>
             <div className="w-auto flex-grow">

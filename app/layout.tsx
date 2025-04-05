@@ -1,4 +1,4 @@
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 import { Source_Code_Pro } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";

@@ -31,9 +31,7 @@ const createHelp = (): string[] => {
   help.push("<br/>");
   help.push("Press <span class='keys'>[Tab]</span> for auto completion.");
   help.push("Press <span class='keys'>[Esc]</span> to clear the input line.");
-  help.push(
-    "Press <span class='keys'>[↑][↓]</span> to scroll through your history of commands.",
-  );
+  help.push("Press <span class='keys'>[↑][↓]</span> to scroll through your history of commands.");
   help.push("<br/>");
   return help;
 };

@@ -1,4 +1,4 @@
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 import { DateTime } from "luxon";
 
 export function debounce(callback: Function, delay: number) {

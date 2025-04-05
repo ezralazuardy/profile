@@ -1,4 +1,4 @@
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 
 export default function manifest() {
   return {

@@ -30,10 +30,7 @@ const whoamiObj = {
       "Self-discovery, a relentless pace",
       "The echo never ends its race - ",
     ],
-    [
-      "In the kaleidoscope of existence,",
-      "I am but a reflection questioning the enigma - ",
-    ],
+    ["In the kaleidoscope of existence,", "I am but a reflection questioning the enigma - "],
     [
       "Amidst cosmic whispers,",
       "I navigate the maze of self-discovery,",
@@ -44,11 +41,7 @@ const whoamiObj = {
       "I am a note inquiring its own melody,",
       "Harmonizing with the universal query - ",
     ],
-    [
-      "As stardust contemplating its journey,",
-      "I ponder the cosmic query,",
-      "Silently asking - ",
-    ],
+    ["As stardust contemplating its journey,", "I ponder the cosmic query,", "Silently asking - "],
     [
       "In the tapestry of reality,",
       "I am the thread of self-inquiry,",

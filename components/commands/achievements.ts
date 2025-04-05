@@ -1,4 +1,4 @@
-import config from "@/lib/config.json" assert { type: "json" };
+import config from "@/lib/config.json";
 
 const createAchievement = (): string[] => {
   const achievements: string[] = [];

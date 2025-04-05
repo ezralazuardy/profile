@@ -38,26 +38,14 @@
       "Painless OAuth 2.0 Server for CodeIgniter 4.",
       "https://github.com/ezralazuardy/heimdall"
     ],
-    [
-      "🔮 Orb",
-      "Android network monitoring made easy.",
-      "https://github.com/ezralazuardy/orb"
-    ],
+    ["🔮 Orb", "Android network monitoring made easy.", "https://github.com/ezralazuardy/orb"],
     [
       "🪶 Ravel",
       "A battery-included CI/CD Environment for Laravel.",
       "https://github.com/ezralazuardy/ravel"
     ],
-    [
-      "💎 Gem",
-      "A more fun way to interact with Gemini.",
-      "https://github.com/ezralazuardy/gem"
-    ],
-    [
-      "ꦲ Aksara",
-      "Headless javanese script translator.",
-      "https://github.com/ezralazuardy/aksara"
-    ],
+    ["💎 Gem", "A more fun way to interact with Gemini.", "https://github.com/ezralazuardy/gem"],
+    ["ꦲ Aksara", "Headless javanese script translator.", "https://github.com/ezralazuardy/aksara"],
     [
       "🦑 Pokemon",
       "A simple, lightweight pokemon-like game for web.",
